@@ -1,0 +1,35 @@
+{
+  "name": "askoverflow-server",
+  "version": "1.0.0",
+  "description": "This is backend login for askoverflow project",
+  "main": "index.js",
+  "scripts": {
+     "start": "node index.js",
+     "app": "nodemon index.js",
+     "test": "echo \"Error: no test specified\" && exit 1"
+   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vasu-1/askoverflow-server.git"
+  },
+  "keywords": [
+    "mernstack"
+  ],
+  "author": "Vashishth Patel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vasu-1/askoverflow-server/issues"
+  },
+  "homepage": "https://github.com/vasu-1/askoverflow-server#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "mongoose": "^6.6.0",
+    "validation": "^0.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}

@@ -16,6 +16,7 @@ connectDB();
 
 // Init Middleware
 app.use(express.json({ extended: false }));
+app.use(express.json());
 // link the router
 app.use(require('./router/auth'));
 // Middleware

@@ -3,6 +3,7 @@ const router = express.Router();
 const connectDB = require('../config/db');
 const User = require('../model/userSchema');
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 router.get('/', (req, res) => {
   res.send('Hello from auth router');
@@ -82,7 +83,7 @@ router.post('/signup', async (req, res) => {
 router.post('/signin', async (req, res) => {
 
   const { username, password } = req.body;
-
+  console.log("Signin attempt");
   if (!username || !password) {
     return res.status(422).json({ error: "All fields are required" });
   }
@@ -91,9 +92,11 @@ router.post('/signin', async (req, res) => {
     const usernameExist = await User.findOne({ username: username });
     if (usernameExist) {
       const isMatch = await bcrypt.compare(password, usernameExist.password);
-      // const user = await User.findOne({ username: username, password: password });
+
+      const token = await usernameExist.generateAuthToken();
+
       if (isMatch) {
-        return res.status(201).json({ message: "You are logged in!" });
+        return res.status(201).json({ message: "You are logged in!", jwttokenloginuser: token });
       } else {
         return res.status(422).json({ error: "Passwrd is incorrect!" });
       }

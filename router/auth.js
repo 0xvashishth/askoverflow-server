@@ -4,6 +4,7 @@ const connectDB = require('../config/db');
 const User = require('../model/userSchema');
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const mailsender = require('../controllers/mailer')
 
 router.get('/', (req, res) => {
   res.send('Hello from auth router');
@@ -66,8 +67,12 @@ router.post('/signup', async (req, res) => {
     const user = new User({ name, email, username, password });
 
     const userRegister = await user.save();
-
+    const subject = ``
     if (userRegister) {
+      mailsender.sendmailer(
+        email,
+        "Askoverflow Registration"
+      );
       return res.status(201).json({ message: "User registered successfully" });
     } else {
       res.status(500).json({ error: "Failed to register user" });

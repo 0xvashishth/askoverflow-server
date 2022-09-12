@@ -36,14 +36,6 @@ app.get('/contact', middleware, (req, res) => {
   res.send('Hello Contact')
 });
 
-// app.get('/signup', (req, res) => {
-//   res.send('Hello signup')
-// });
-
-// app.get('/signup', (req, res) => {
-//   res.send('Hello signup')
-// });
-
 const port = process.env.PORT || 8082;
 
 app.listen(port, () => console.log(`Server running on port ${port}`));

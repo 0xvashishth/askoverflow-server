@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const secret_key = process.env['SECRETKEYJWT'];
+const { Schema } = mongoose;
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -61,7 +62,6 @@ userSchema.methods.generateAuthToken = async function() {
   }
 }
 
-
-const User = mongoose.model('USER', userSchema);
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;

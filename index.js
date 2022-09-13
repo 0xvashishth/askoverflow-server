@@ -18,7 +18,9 @@ connectDB();
 app.use(express.json({ extended: false }));
 app.use(express.json());
 // link the router
+app.use(require('./router/questions'));
 app.use(require('./router/auth'));
+app.use(require('./router/publicquestions'));   
 // Middleware
 const middleware = (req, res, next) => {
   console.log("Hello my middleware");

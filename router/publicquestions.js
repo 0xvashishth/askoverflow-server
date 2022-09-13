@@ -21,7 +21,7 @@ router.get('/publicquestionsget', async (req, res) => {
   try {
     const allquestions = await Question.find();
     // console.log(allquestions);
-    console.log(allquestions.length);
+    // console.log(allquestions.length);
     var responsedata = [];
     for (var i = 0; i < allquestions.length; i++) {
       let obj = allquestions[i];

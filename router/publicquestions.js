@@ -19,7 +19,8 @@ router.get('/publicquestionsget', async (req, res) => {
   // const { ipuser } = req.body;
   // console.log(ipuser)
   try {
-    const allquestions = await Question.find();
+    const allquestions = await Question.find().sort({ $natural: -1 });
+
     // console.log(allquestions);
     // console.log(allquestions.length);
     var responsedata = [];

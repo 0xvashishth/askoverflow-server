@@ -6,8 +6,8 @@ const bodyParser = require('body-parser')
 const app = express();
 //body-parse
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-// cors
+app.use(bodyParser.urlencoded({ limit: "30mb", extended: true })); 
+// cors 
 app.use(cors({ origin: true, credentials: true }));
 
 // Connect Database
@@ -20,7 +20,8 @@ app.use(express.json());
 // link the router
 app.use(require('./router/questions'));
 app.use(require('./router/auth'));
-app.use(require('./router/publicquestions'));   
+app.use(require('./router/publicquestions'));  
+app.use(require('./router/userauth.js'));  
 // Middleware
 const middleware = (req, res, next) => {
   console.log("Hello my middleware");

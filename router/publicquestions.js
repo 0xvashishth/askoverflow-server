@@ -32,6 +32,7 @@ router.get('/publicquestionsget', async (req, res) => {
       responsedata[i].body = obj.body;
       responsedata[i].tags = obj.tags;
       responsedata[i].author = user.name;
+      responsedata[i].username = user.username;
     }
     return res.status(201).json(responsedata);
   } catch (err) {

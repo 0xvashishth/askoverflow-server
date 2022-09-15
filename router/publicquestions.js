@@ -41,5 +41,33 @@ router.get('/publicquestionsget', async (req, res) => {
 
 });
 
+router.post('/publicquestionsget', Authenticate, async (req, res) => {
+
+  // const { ipuser } = req.body;
+  // console.log(ipuser)
+  try {
+    console.log(req.rootUser.name)
+    const allquestions = await Question.find({ posted_by: req.userId }).sort({ $natural: -1 });
+
+    // console.log(allquestions);
+    // console.log(allquestions.length);
+    var responsedata = [];
+    for (var i = 0; i < allquestions.length; i++) {
+      let obj = allquestions[i];
+      responsedata[i] = {}
+      const user = await User.findOne({ _id: obj.posted_by });
+      responsedata[i].header = obj.header;
+      responsedata[i].body = obj.body;
+      responsedata[i].tags = obj.tags;
+      responsedata[i].author = user.name;
+      responsedata[i].username = user.username;
+    }
+    return res.status(201).json(responsedata);
+  } catch (err) {
+    console.log(err);
+  }
+
+});
+
 
 module.exports = router;

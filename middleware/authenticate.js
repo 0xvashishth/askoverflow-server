@@ -12,7 +12,7 @@ const Authenticate = async (req, res, next) => {
     const token = jwttokenloginuser;
     const verifytoken = jwt.verify(token, secret_key);
 
-    const rootUser = await User.findOne({ _id: verifytoken._id, "tokens.token": token });
+    var rootUser = await User.findOne({ _id: verifytoken._id, "tokens.token": token });
 
     if (!rootUser) {
       throw new Error("User not found");

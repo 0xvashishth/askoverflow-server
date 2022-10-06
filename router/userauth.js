@@ -13,10 +13,11 @@ router.get('/usertest', (req, res) => {
   res.send('Hello from auth usertest');
 });
 
-
 router.post('/user', Authenticate, async (req, res) => {
   console.log("user authenticated!");
-  res.status(200).json(req.rootUser);
+  const allquestions = await Question.find({ posted_by: req.userId }).count();
+  req.rootUser.allquestions = allquestions;
+  res.status(200).json({ allquestions: allquestions, rootUser: req.rootUser});
 });
 
 module.exports = router;

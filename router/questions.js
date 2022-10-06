@@ -9,20 +9,6 @@ const Question = require('../model/questionSchema');
 const Authenticate = require('../middleware/authenticate')
 
 
-router.get('/questions', (req, res) => {
-  res.send('Hello from auth question');
-});
-
-// const authmiddleware = (req, res, next) => {
-//   const { username, header, tags, body } = req.body;
-
-//   next();
-// }
-// app.get('/contact', middleware, (req, res) => {
-//   console.log("Hello my contact");
-//   res.send('Hello Contact')
-// });
-
 router.post('/questionpost', Authenticate, async (req, res) => {
 
   const { header, tags, body } = req.body;

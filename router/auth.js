@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken')
 const mailsender = require('../controllers/mailer')
 
 router.get('/', (req, res) => {
-  res.send('Hello from auth router');
+  res.send('Hello from auth router !!');
 });
 
 // using promises

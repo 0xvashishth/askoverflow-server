@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 // const connectDB = require('../config/db');
-// const User = require('../model/userSchema');
+const User = require('../model/userSchema');
 const Question = require('../model/questionSchema');
 // const bcrypt = require('bcryptjs')
 // const jwt = require('jsonwebtoken')
@@ -11,17 +11,43 @@ const Question = require('../model/questionSchema');
 
 router.get('/question', async (req, res) => {
   try {
-    console.log(req.query.id)
+    // console.log(req.query.id)
     if (req.query.id) {
       const questionId = req.query.id;
-      console.log(req.query.id)
-      const question_detail = await Question.findOne({ _id: questionId });
+      let question_detail = await Question.findOne({ _id: questionId });
+      var view = question_detail.views + 1;
+      var data = question_detail.toJSON();
       if (question_detail) {
-        return res.status(201).json(question_detail);
-      } else {
+        const countone = await Question.updateOne({ _id: question_detail._id }, { views: view });
+        var men1 = data._id.toString().substring(0, 8);
+        var date1 = new Date(parseInt(men1, 16) * 1000)
+        var time1 = date1.getDate() +
+          "/" + (date1.getMonth() + 1) +
+          "/" + date1.getFullYear() +
+          " " + date1.getHours() +
+          ":" + date1.getMinutes() +
+          ":" + date1.getSeconds();
+        data.posted_on = time1;
+        var answerers = question_detail.answers;
+        for (var i = 0; i < answerers.length; i++) {
+          var user = await User.findById(answerers[i].answered_by);
+          data.answers[i].answered = user['username'];
+          data.answers[i].answered_on = "on this";
+          var men = data.answers[i].answered_by.toString().substring(0, 8);
+          var date = new Date(parseInt(men, 16) * 1000)
+          var time = date.getDate() +
+            "/" + (date.getMonth() + 1) +
+            "/" + date.getFullYear() +
+            " " + date.getHours() +
+            ":" + date.getMinutes() +
+            ":" + date.getSeconds();
+          data.answers[i].answered_on = time;
+        }
+        return res.status(201).json(data);
+      }
+      else {
         res.status(404).json({ error: "Question is no more!" });
       }
-
     }
   } catch (err) {
     res.status(404).json({ error: "Try Again! We are facing issue!" });

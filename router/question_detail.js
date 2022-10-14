@@ -19,6 +19,8 @@ router.get('/question', async (req, res) => {
       var data = question_detail.toJSON();
       if (question_detail) {
         const countone = await Question.updateOne({ _id: question_detail._id }, { views: view });
+        var user1 = await User.findById(question_detail.posted_by);
+        data.asked_by = user1['username'];
         var men1 = data._id.toString().substring(0, 8);
         var date1 = new Date(parseInt(men1, 16) * 1000)
         var time1 = date1.getDate() +

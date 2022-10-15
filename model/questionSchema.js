@@ -28,6 +28,10 @@ const questionSchema = new mongoose.Schema({
       answered_by: {
         type: Schema.Types.ObjectId, ref: User,
       },
+      is_verified:{
+        type: Boolean,
+        default: false
+      },
       answer_body: {
         type: String,
       },
@@ -50,6 +54,10 @@ const questionSchema = new mongoose.Schema({
   views: {
     type: Number,
     default: 0
+  },
+  is_answer_verified: {
+    type: Boolean,
+    default: false
   },
 });
 

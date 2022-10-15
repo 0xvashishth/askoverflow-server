@@ -43,6 +43,7 @@ router.get('/publicquestionsget', async (req, res) => {
       counttags=counttags+obj.tags.length;
       responsedata[i].author = user.name;
       responsedata[i].username = user.username;
+      responsedata[i].is_answer_verified = obj.is_answer_verified;
     }
     // console.log(i);
     responsedata[i-1].counttags = counttags;

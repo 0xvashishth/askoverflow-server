@@ -28,7 +28,7 @@ const questionSchema = new mongoose.Schema({
       answered_by: {
         type: Schema.Types.ObjectId, ref: User,
       },
-      is_verified:{
+      is_verified: {
         type: Boolean,
         default: false
       },
@@ -41,12 +41,26 @@ const questionSchema = new mongoose.Schema({
             type: Schema.Types.ObjectId, ref: User,
           }
         }
+      ],
+      unliked_by: [
+        {
+          unlikes: {
+            type: Schema.Types.ObjectId, ref: User,
+          }
+        }
       ]
     }
   ],
   liked_by: [
     {
       likes: {
+        type: Schema.Types.ObjectId, ref: User,
+      }
+    }
+  ],
+  unliked_by: [
+    {
+      unlikes: {
         type: Schema.Types.ObjectId, ref: User,
       }
     }

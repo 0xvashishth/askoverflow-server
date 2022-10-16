@@ -4,7 +4,7 @@ const User = require('../model/userSchema');
 const Question = require('../model/questionSchema');
 const Authenticate = require('../middleware/authenticate');
 
-router.post('/answervote', Authenticate, async (req, res) => {
+router.post('/questionvote', Authenticate, async (req, res) => {
   const { vote, answerid } = req.body;
   console.log(req.userId)
   console.log("Verified for vote");

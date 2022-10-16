@@ -25,6 +25,7 @@ app.use(require('./router/userauth.js'));
 app.use(require('./router/question_detail.js'));
 app.use(require('./router/answer_post.js'));
 app.use(require('./router/answer_vote.js'));
+app.use(require('./router/question_vote.js'));
 
 // Middleware
 const middleware = (req, res, next) => {

@@ -14,18 +14,19 @@ const Authenticate = require('../middleware/authenticate')
 router.post('/answerpost', Authenticate, async (req, res) => {
 
   const { body, questionid } = req.body;
+  // console.log(body, questionid);
 
   try {
     var questionavailable = await Question.findOne({ _id: questionid });
     if (!questionavailable) {
-      res.status(422).json({ error: "Question got wrong side!!" });
+      return res.status(422).json({ error: "Question got wrong side!!" });
     }
     else {
       console.log("Question found for answer");
     }
   } catch (err) {
     console.log(err);
-    res.status(500).json({
+    return res.status(500).json({
       message: 'Something went wrong'
     });
   }
@@ -38,12 +39,12 @@ router.post('/answerpost', Authenticate, async (req, res) => {
     if (answerpost) {
       return res.status(201).json({ message: "Answer posted successfully" });
     } else {
-      res.status(422).json({ error: "Failed to post answer!" });
+      return res.status(422).json({ error: "Failed to post answer!" });
     }
 
   } catch (err) {
     console.log(err);
-    res.status(500).json({ error: "Failed to post answer!!" });
+    return res.status(500).json({ error: "Failed to post answer!!" });
   }
 
 });

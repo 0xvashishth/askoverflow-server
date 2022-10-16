@@ -48,11 +48,11 @@ router.get('/question', async (req, res) => {
         return res.status(201).json(data);
       }
       else {
-        res.status(404).json({ error: "Question is no more!" });
+        return res.status(404).json({ error: "Question is no more!" });
       }
     }
   } catch (err) {
-    res.status(404).json({ error: "Try Again! We are facing issue!" });
+    return res.status(404).json({ error: "Try Again! We are facing issue!" });
   }
 });
 

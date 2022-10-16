@@ -5,7 +5,7 @@ const Question = require('../model/questionSchema');
 const Authenticate = require('../middleware/authenticate');
 
 router.post('/questionvote', Authenticate, async (req, res) => {
-  const { vote, answerid } = req.body;
+  const { vote, questionid } = req.body;
   console.log(req.userId)
   console.log("Verified for vote");
   if(vote == 1){
@@ -20,40 +20,40 @@ router.post('/questionvote', Authenticate, async (req, res) => {
   // var upote,downvote;
   var tokenforone=1;
   try{
-    const answerupvotecheck = await Question.findOne({ answers : { $elemMatch: {_id: answerid, liked_by: { $elemMatch : { likes: req.userId  } } } } });
+    const questionupvotecheck = await Question.findOne({_id: questionid, liked_by : { $elemMatch: {likes: req.userId } } });
     // db.users.find({awards: {$elemMatch: {award:'National Medal', year:1975}}})
     // console.log("ele metch ", answerupvotecheck)
-    if(answerupvotecheck){
-      console.log("before here log")
-      console.log(answerupvotecheck.answers[4]);
-      console.log("here log")
+    if(questionupvotecheck){
+      // console.log("before here log")
+      console.log("found voted person")
+      // console.log("here log")
       tokenforone = 0;
       if(vote == 1){
         return res.status(422).json({ error: "You cannot upvote an answer for more than once!" });
       }else if(vote == -1){
           try {
-            var answeravailable = await Question.updateOne(
-              { "answers._id": answerid },
+            var questionavailable = await Question.updateOne(
+              { _id: questionid },
                 {
                   $push: {
-                    "answers.$.unliked_by": {
+                    unliked_by: {
                       "unlikes": req.userId,
                     }
                   },
                   $pull: {
-                    "answers.$.liked_by": {
+                    liked_by: {
                       "likes": req.userId,
                     }
                   }
                 }
             );
-            if (!answeravailable) {
+            if (!questionavailable) {
               return res.status(422).json({ error: "You did something wrong!!" });
             }
             else {
-              console.log(answeravailable);
-              console.log("Answer found for down-vote!");
-              return res.status(201).json({ message: "Answer Down-Voted Successfully!!", given_vote:-2 });
+              console.log(questionavailable);
+              console.log("question found for down-vote!");
+              return res.status(201).json({ message: "Question Down-Voted Successfully!!", given_vote:-2 });
             }
           } catch (err) {
             console.log(err);
@@ -64,37 +64,36 @@ router.post('/questionvote', Authenticate, async (req, res) => {
       }
       // upvote=1;
     }
-    // const answerdownvotecheck = await Question.findOne({ answers : { unliked_by : { $elemMatch: { unlikes: req.userId } } } });
-    // const answerdownvotecheck = await Question.findOne({_id:questionid},{ answers : { _id: answerid, unliked_by : { unlikes: req.userId  } } });
-    const answerdownvotecheck = await Question.findOne({ answers : { $elemMatch: {_id: answerid, unliked_by: { $elemMatch : { unlikes: req.userId  } } } } });
-    if(answerdownvotecheck){
+
+    const questiondownvotecheck = await Question.findOne({_id: questionid, unliked_by : { $elemMatch: {unlikes: req.userId } } });
+    if(questiondownvotecheck){
       tokenforone = 0;
       if(vote == -1){
-        return res.status(422).json({ error: "You cannot down-vote an answer for more than once!" });
+        return res.status(422).json({ error: "You cannot down-vote an question for more than once!" });
       }
       else if(vote == 1){
         try {
-            var answeravailable = await Question.updateOne(
-              { "answers._id": answerid },
+            var questionavailable = await Question.updateOne(
+              { _id: questionid },
                 {
                   $pull: {
-                    "answers.$.unliked_by": {
+                    unliked_by: {
                       "unlikes": req.userId,
                     }
                   },
                   $push: {
-                    "answers.$.liked_by": {
+                    liked_by: {
                       "likes": req.userId,
                     }
                   }
                 }
             );
-            if (!answeravailable) {
+            if (!questionavailable) {
               return res.status(422).json({ error: "You did something wrong!!" });
             }
             else {
-              console.log("Answer found for up-vote!");
-              return res.status(201).json({ message: "Answer Up-Voted Successfully!!", given_vote:2 });
+              console.log("Question found for up-vote!");
+              return res.status(201).json({ message: "Question Up-Voted Successfully!!", given_vote:2 });
             }
           } catch (err) {
             console.log(err);
@@ -117,22 +116,22 @@ router.post('/questionvote', Authenticate, async (req, res) => {
   if(tokenforone === 1){
   if(vote == 1){
     try {
-      var answeravailable = await Question.updateOne(
-        { "answers._id": answerid },
+      var questionavailable = await Question.updateOne(
+        { _id: questionid },
           {
             $push: {
-              "answers.$.liked_by": {
+              liked_by: {
                 "likes": req.userId,
               }
             }
           }
       );
-      if (!answeravailable) {
+      if (!questionavailable) {
         return res.status(422).json({ error: "You did something wrong!!" });
       }
       else {
-        console.log("Answer found for vote!");
-        return res.status(201).json({ message: "Answer Voted Successfully!!", given_vote:1 });
+        console.log("question found for vote!");
+        return res.status(201).json({ message: "Question Voted Successfully!!", given_vote:1 });
       }
     } catch (err) {
       console.log(err);
@@ -143,22 +142,22 @@ router.post('/questionvote', Authenticate, async (req, res) => {
   }
   else if(vote == -1){
     try {
-      var answeravailable = await Question.updateOne(
-        { "answers._id": answerid },
+      var questionavailable = await Question.updateOne(
+        { _id: questionid },
           {
             $push: {
-              "answers.$.unliked_by": {
+              unliked_by: {
                 "unlikes": req.userId,
               }
             }
           }
       );
-      if (!answeravailable) {
+      if (!questionavailable) {
         return res.status(422).json({ error: "You did something wrong!!" });
       }
       else {
-        console.log("Answer found for vote!");
-        return res.status(201).json({ message: "Answer Down-Voted Successfully!!", given_vote:-1 });
+        console.log("question found for vote!");
+        return res.status(201).json({ message: "Question Down-Voted Successfully!!", given_vote:-1 });
       }
     } catch (err) {
       console.log(err);

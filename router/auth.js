@@ -101,7 +101,7 @@ router.post('/signin', async (req, res) => {
       const token = await usernameExist.generateAuthToken();
 
       if (isMatch) {
-        return res.status(201).json({ message: "You are logged in!", jwttokenloginuser: token });
+        return res.status(201).json({ message: "You are logged in!", jwttokenloginuser: token, userId: usernameExist._id });
       } else {
         return res.status(422).json({ error: "Passwrd is incorrect!" });
       }

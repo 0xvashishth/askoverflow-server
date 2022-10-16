@@ -6,12 +6,12 @@ const Authenticate = require('../middleware/authenticate');
 
 router.post('/answervote', Authenticate, async (req, res) => {
   const { vote, answerid } = req.body;
-  console.log(req.userId)
-  console.log("Verified for vote");
+  // console.log(req.userId)
+  // console.log("Verified for vote");
   if(vote == 1){
-    console.log(vote);
+    // console.log(vote);
   }else if(vote == -1){
-    console.log(vote);
+    // console.log(vote);
   }else{
     console.log(vote);
     return res.status(422).json({ error: "You did something wrong!!!!" });
@@ -24,9 +24,9 @@ router.post('/answervote', Authenticate, async (req, res) => {
     // db.users.find({awards: {$elemMatch: {award:'National Medal', year:1975}}})
     // console.log("ele metch ", answerupvotecheck)
     if(answerupvotecheck){
-      console.log("before here log")
-      console.log(answerupvotecheck.answers[4]);
-      console.log("here log")
+      // console.log("before here log")
+      // console.log(answerupvotecheck.answers[4]);
+      // console.log("here log")
       tokenforone = 0;
       if(vote == 1){
         return res.status(422).json({ error: "You cannot upvote an answer for more than once!" });
@@ -51,8 +51,8 @@ router.post('/answervote', Authenticate, async (req, res) => {
               return res.status(422).json({ error: "You did something wrong!!" });
             }
             else {
-              console.log(answeravailable);
-              console.log("Answer found for down-vote!");
+              // console.log(answeravailable);
+              // console.log("Answer found for down-vote!");
               return res.status(201).json({ message: "Answer Down-Voted Successfully!!", given_vote:-2 });
             }
           } catch (err) {
@@ -93,7 +93,7 @@ router.post('/answervote', Authenticate, async (req, res) => {
               return res.status(422).json({ error: "You did something wrong!!" });
             }
             else {
-              console.log("Answer found for up-vote!");
+              // console.log("Answer found for up-vote!");
               return res.status(201).json({ message: "Answer Up-Voted Successfully!!", given_vote:2 });
             }
           } catch (err) {
@@ -131,7 +131,7 @@ router.post('/answervote', Authenticate, async (req, res) => {
         return res.status(422).json({ error: "You did something wrong!!" });
       }
       else {
-        console.log("Answer found for vote!");
+        // console.log("Answer found for vote!");
         return res.status(201).json({ message: "Answer Voted Successfully!!", given_vote:1 });
       }
     } catch (err) {
@@ -157,7 +157,7 @@ router.post('/answervote', Authenticate, async (req, res) => {
         return res.status(422).json({ error: "You did something wrong!!" });
       }
       else {
-        console.log("Answer found for vote!");
+        // console.log("Answer found for vote!");
         return res.status(201).json({ message: "Answer Down-Voted Successfully!!", given_vote:-1 });
       }
     } catch (err) {

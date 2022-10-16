@@ -1,28 +1,41 @@
 const express = require('express');
 const router = express.Router();
-// const connectDB = require('../config/db');
-const User = require('../model/userSchema');
-const Question = require('../model/questionSchema');
-// const bcrypt = require('bcryptjs')
-// const jwt = require('jsonwebtoken')
-// const mailsender = require('../controllers/mailer')
-// curl -H "Content-Type: application/json" -X POST -d '{"questionid": "632ecdbb6cded3e22fbe2dd9","body":"this is answer","jwttokenloginuser":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzFkZjg1ZTU0OGVlMWE3NDZhYzQ1YWIiLCJpYXQiOjE2NjQ0NDQ2NDN9.naIkDDMo00WVSCBCE8Zwlqs77BHWDPjXc5Zff2VzOd0"}' https://askoverflow-server.vashishth-patel.repl.co/answerpost
-
-const Authenticate = require('../middleware/authenticate')
+const User = require('../../model/userSchema');
+const Question = require('../../model/questionSchema');
+const Authenticate = require('../../middleware/authenticate')
 
 
 router.post('/answeredit', Authenticate, async (req, res) => {
 
-  const { body, questionid } = req.body;
+  const { body, answerid } = req.body;
   // console.log(body, questionid);
 
   try {
-    var questionavailable = await Question.findOne({ _id: questionid });
-    if (!questionavailable) {
-      return res.status(422).json({ error: "Question got wrong side!!" });
+    // var questionavailable = await Question.findOne({ _id: answerid });
+    const answeravailable = await Question.findOne({ answers : { $elemMatch: {_id: answerid, answered_by: req.userId } } });
+    if (!answeravailable) {
+      return res.status(422).json({ error: "You are not the owner of this answer" });
     }
     else {
-      console.log("Question found for answer");
+      console.log("Question found for edit answer");
+        if (!body) {
+          return res.status(422).json({ error: "Please Fill the body" });
+        }else{
+          // console.log(answerid);
+          // console.log(body);
+          const answerupdate = await Question.updateMany(
+            {'answers._id': answerid },
+            {"$set": {
+              'answers.$.answer_body': body
+              }
+            });
+          if(!answerupdate){
+            return res.status(422).json({ error: "Something went wrong!!!!" });
+          }else{
+            console.log(answerupdate);
+            return res.status(200).json({ message: "Answer Updated Successfully"   });
+          }
+        }
     }
   } catch (err) {
     console.log(err);
@@ -30,23 +43,6 @@ router.post('/answeredit', Authenticate, async (req, res) => {
       message: 'Something went wrong'
     });
   }
-  if (!body) {
-    return res.status(422).json({ error: "Please Fill the properties" });
-  }
-  try {
-    const answerpost = await Question.updateOne({ _id: questionid }, { $push: { "answers": { "answered_by": req.userId, "answer_body": body } } });
-
-    if (answerpost) {
-      return res.status(201).json({ message: "Answer posted successfully" });
-    } else {
-      return res.status(422).json({ error: "Failed to post answer!" });
-    }
-
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json({ error: "Failed to post answer!!" });
-  }
-
 });
 
 module.exports = router;

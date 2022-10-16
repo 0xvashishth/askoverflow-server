@@ -26,6 +26,8 @@ app.use(require('./router/question_detail.js'));
 app.use(require('./router/answer_post.js'));
 app.use(require('./router/answer_vote.js'));
 app.use(require('./router/question_vote.js'));
+app.use(require('./router/answer/answer_edit.js'));
+app.use(require('./router/question/question_edit.js'));
 
 // Middleware
 const middleware = (req, res, next) => {

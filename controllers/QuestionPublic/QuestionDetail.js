@@ -1,17 +1,8 @@
-const express = require('express');
-const router = express.Router();
-// const connectDB = require('../config/db');
-const User = require('../model/userSchema');
-const Question = require('../model/questionSchema');
-// const bcrypt = require('bcryptjs')
-// const jwt = require('jsonwebtoken')
-// const mailsender = require('../controllers/mailer')
-// const Authenticate = require('../middleware/authenticate')
+const Question = require('../../model/questionSchema');
+const User = require('../../model/userSchema');
 
-
-router.get('/question', async (req, res) => {
+const getDetailQuestion = async (req, res, next) => {
   try {
-    // console.log(req.query.id)
     if (req.query.id) {
       const questionId = req.query.id;
       let question_detail = await Question.findOne({ _id: questionId });
@@ -48,12 +39,14 @@ router.get('/question', async (req, res) => {
         return res.status(201).json(data);
       }
       else {
-        return res.status(404).json({ error: "Question is no more!" });
+        return res.status(422).json({ error: "Question is no more!" });
       }
     }
   } catch (err) {
-    return res.status(404).json({ error: "Try Again! We are facing issue!" });
+    return res.status(422).json({ error: "Try Again! We are facing issue!" });
   }
-});
+}
 
-module.exports = router;
+module.exports = {
+  getDetailQuestion,
+}

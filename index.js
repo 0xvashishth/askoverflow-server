@@ -17,17 +17,14 @@ connectDB();
 // Init Middleware
 app.use(express.json({ extended: false }));
 app.use(express.json());
+
 // link the router
-app.use(require('./router/questions'));
 app.use(require('./router/auth'));
-app.use(require('./router/publicquestions'));
 app.use(require('./router/userauth.js'));
-app.use(require('./router/question_detail.js'));
-app.use(require('./router/answer_post.js'));
-app.use(require('./router/answer_vote.js'));
-app.use(require('./router/question_vote.js'));
-app.use(require('./router/answer/answer_edit.js'));
-app.use(require('./router/question/question_edit.js'));
+app.use(require('./router/answer/AnswerCrud.js'));
+app.use(require('./router/question/QuestionCrud.js'));
+app.use(require('./router/question/QuestionPublic.js'));
+app.use(require('./router/user/UserQuestion.js'));
 
 // Middleware
 const middleware = (req, res, next) => {

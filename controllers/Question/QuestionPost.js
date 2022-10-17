@@ -1,16 +1,6 @@
-const express = require('express');
-const router = express.Router();
-// const connectDB = require('../config/db');
-// const User = require('../model/userSchema');
-const Question = require('../model/questionSchema');
-// const bcrypt = require('bcryptjs')
-// const jwt = require('jsonwebtoken')
-// const mailsender = require('../controllers/mailer')
-const Authenticate = require('../middleware/authenticate')
+const Question = require('../../model/questionSchema');
 
-
-router.post('/questionpost', Authenticate, async (req, res) => {
-
+const postQuestion = async (req, res, next) => {
   const { header, tags, body } = req.body;
   if (!header || !body) {
     return res.status(422).json({ error: "Please Fill the properties" });
@@ -29,7 +19,8 @@ router.post('/questionpost', Authenticate, async (req, res) => {
   } catch (err) {
     console.log(err);
   }
+}
 
-});
-
-module.exports = router;
+module.exports = {
+  postQuestion,
+}

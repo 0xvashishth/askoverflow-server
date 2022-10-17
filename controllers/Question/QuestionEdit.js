@@ -1,13 +1,6 @@
-const express = require('express');
-const router = express.Router();
-// const connectDB = require('../config/db');
-const User = require('../../model/userSchema');
 const Question = require('../../model/questionSchema');
 
-const Authenticate = require('../../middleware/authenticate')
-
-
-router.post('/questionedit', Authenticate, async (req, res) => {
+const editQuestion = async (req, res, next) => {
   console.log(req.userId)
   // console.log(body,questionid,header,tags)
   const { body, questionid, header, tags } = req.body;
@@ -53,6 +46,8 @@ router.post('/questionedit', Authenticate, async (req, res) => {
       message: 'Something went wrong'
     });
    }
-});
+}
 
-module.exports = router;
+module.exports = {
+  editQuestion,
+}

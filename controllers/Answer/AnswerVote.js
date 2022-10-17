@@ -1,10 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const User = require('../model/userSchema');
-const Question = require('../model/questionSchema');
-const Authenticate = require('../middleware/authenticate');
+const Question = require('../../model/questionSchema');
 
-router.post('/answervote', Authenticate, async (req, res) => {
+const voteAnswer = async (req, res, next) => {
   const { vote, answerid } = req.body;
   // console.log(req.userId)
   // console.log("Verified for vote");
@@ -168,6 +164,8 @@ router.post('/answervote', Authenticate, async (req, res) => {
     }
   }
   }
-});
+}
 
-module.exports = router;
+module.exports = {
+  voteAnswer,
+}

@@ -20,11 +20,11 @@ app.use(express.json());
 
 // link the router
 app.use(require('./router/auth'));
-app.use(require('./router/userauth.js'));
+// app.use(require('./router/userauth.js'));
 app.use(require('./router/answer/AnswerCrud.js'));
 app.use(require('./router/question/QuestionCrud.js'));
 app.use(require('./router/question/QuestionPublic.js'));
-app.use(require('./router/user/UserQuestion.js'));
+app.use(require('./router/user/UserProfile.js'));
 
 // Middleware
 const middleware = (req, res, next) => {

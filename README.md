@@ -4,7 +4,7 @@
 <h3 align="center">A backend server for <a href="https://github.com/vasu-1/askoverflow-client">askoverflow client</a></h3>
 
 <div align="center">
-<a href="https://github.com/vasu-1/askoverflow-server"><img src="https://sloc.xyz/github/vasu-1/askoverflow-server" alt="total lines"/></a>
+<a href="https://github.com/vasu-1/askoverflow-server"><img src="https://sloc.xyz/github/vasu-1/askoverflow-server?style=for-the-badge" alt="total lines"/></a>
 <a href="https://github.com/vasu-1/askoverflow-server"><img src="https://img.shields.io/github/stars/vasu-1/askoverflow-server" alt="Stars"/></a>
 <a href="https://github.com/vasu-1/askoverflow-server/network/members"><img src="https://img.shields.io/github/forks/vasu-1/askoverflow-server" alt="Forks"/></a>
 <a href="https://github.com/vasu-1/askoverflow-server/commits"><img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/vasu-1/askoverflow-server?logo=github"></a>
@@ -41,10 +41,10 @@
 
 # Tech Stack
 
-![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
-![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
-![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
-![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
-![REST API](https://img.shields.io/badge/rest%20api%20-%23323330.svg?&style=for-the-badge&logo=rest&logoColor=%23F7DF1E)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?logo=javascript&logoColor=%23F7DF1E)
+![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?logo=mongodb&logoColor=white)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?logo=node.js&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-black?logo=JSON%20web%20tokens)
+![REST API](https://img.shields.io/badge/rest%20api%20-%23323330.svg?&logo=rest&logoColor=%23F7DF1E)
 
 ---

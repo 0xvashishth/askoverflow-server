@@ -34,12 +34,12 @@
 - All functions will be done with API call.
 - There are some public API calls like, anyone can see all the questions and can see the answers, but cannot do actions which `requires authentication`.
 - Authenticate User can ask/edit/delete the question.
-- Authenticate User can answer/edit/delete their respective answers.
-- Authenticate User can upote or downvote the answer only once. User can not `upvote/downvote for more than once`.
-- Authenticate User and only owner of the question can verify any perticular answer.
-- Client website also supports `Markdown formatting`.
-- Authenticate user can see his all answers and all questions posted by him/her can see the data including votes, body, link etc. in the profile page.
-- Mail will be sent to the user when he/she gets registered(`using nodemailer`).
+- Authenticate Users can answer/edit/delete their respective answers.
+- Authenticate User can upvote or downvote the answer only once. Users can not upvote/downvote more than once.
+- Authenticate User and only the owner of the question can verify any particular answer.
+- The client's website also supports Markdown formatting.
+- Authenticate users can see all their answers and all questions posted by him/her can see the data including votes, body, link, etc. on the profile page.
+- Mail will be sent to the user when he/she gets registered(using nodemailer).
 - Only required data will be sent in the response.
 
 ---

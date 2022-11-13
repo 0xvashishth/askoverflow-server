@@ -71,7 +71,7 @@ router.post('/signup', async (req, res) => {
     if (userRegister) {
       mailsender.sendmailer(
         email,
-        "Askoverflow Registration"
+        name
       );
       return res.status(201).json({ message: "User registered successfully" });
     } else {

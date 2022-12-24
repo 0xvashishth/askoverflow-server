@@ -8,7 +8,6 @@ const secret_key = process.env['SECRETKEYJWT'];
 const Authenticate = async (req, res, next) => {
   try {
     const { jwttokenloginuser } = req.body;
-    console.log("Auth Attempt!");
     const token = jwttokenloginuser;
     const verifytoken = jwt.verify(token, secret_key);
 

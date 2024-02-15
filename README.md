@@ -12,7 +12,7 @@
 
 ---
 
-- :link: Link Of Askoverflow Website: [link](https://askoverflow-client.vashishth-patel.repl.co/)
+- :link: Link Of Askoverflow Website: [link](https://askoverflow.netlify.app/)
 - :link: Link Of Server: [link](https://askoverflow-server.vashishth-patel.repl.co/)
 
 ---

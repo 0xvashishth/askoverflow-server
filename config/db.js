@@ -6,6 +6,7 @@ const db = process.env['mongoURI']
 
 const connectDB = async () => {
   try {
+    mongoose.set('strictQuery', false);
     await mongoose.connect(
       db,
       {
